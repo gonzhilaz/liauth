@@ -129,3 +129,4 @@ class SentinelClient:
                 )
             return await call_next(request)
         return middleware
+

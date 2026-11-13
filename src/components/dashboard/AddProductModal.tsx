@@ -85,3 +85,4 @@ export function AddProductModal({ isOpen, onClose, onAddProduct }: AddProductMod
     </div>
   );
 }
+

@@ -32,7 +32,7 @@ export function LoginView({ passcode, setPasscode, authError, onSubmit }: LoginV
               required
               value={passcode}
               onChange={(e) => setPasscode(e.target.value)}
-              placeholder="developer-root"
+              placeholder="Enter Master Passcode..."
               className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white placeholder-zinc-600 focus:outline-none focus:border-cyan-500"
             />
             {authError && <p className="text-[11px] text-rose-400 mt-1">Invalid passcode</p>}
@@ -49,3 +49,4 @@ export function LoginView({ passcode, setPasscode, authError, onSubmit }: LoginV
     </main>
   );
 }
+

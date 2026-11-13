@@ -42,3 +42,4 @@ export interface GenerateLicenseRequest {
   duration_days: number;
   custom_features?: string[];
 }
+

@@ -90,3 +90,4 @@ $sentinel->pingHeartbeat();
 ## 🔒 Security Guarantee
 - **Zero Client Access**: The client codebase contains only the public key. They cannot issue tokens or counterfeit licenses.
 - **Atomic Kill-Switch**: Freezes client execution instantly with single-click authority.
+

@@ -198,3 +198,4 @@ func (s *SentinelClient) HTTPMiddleware(next http.Handler) http.Handler {
 		next.ServeHTTP(w, r)
 	})
 }
+

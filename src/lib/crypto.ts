@@ -68,3 +68,4 @@ export function verifyLicenseToken(token: string): { valid: boolean; payload?: L
     return { valid: false, error: err.message };
   }
 }
+
