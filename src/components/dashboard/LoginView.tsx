@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { Shield } from "lucide-react";
+import React, { useState } from "react";
+import { Shield, ArrowRight, Lock } from "lucide-react";
 
 interface LoginViewProps {
   passcode: string;
@@ -11,42 +11,70 @@ interface LoginViewProps {
 }
 
 export function LoginView({ passcode, setPasscode, authError, onSubmit }: LoginViewProps) {
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    try {
+      await onSubmit(e);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
-    <main className="min-h-screen flex items-center justify-center p-4 bg-[#0B0E14] text-xs">
-      <div className="w-full max-w-sm bg-zinc-900/90 border border-zinc-800 rounded-2xl p-6 shadow-2xl space-y-4 font-sans">
-        <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+    <main className="min-h-screen flex items-center justify-center p-4 bg-[#09090b] text-xs">
+      <div className="w-full max-w-sm bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-6 shadow-2xl backdrop-blur-xl space-y-5 font-sans">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-zinc-800/80 border border-zinc-700/60 flex items-center justify-center text-zinc-200 shadow-sm">
             <Shield className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="text-sm font-bold text-white">Sentinel Authority</h1>
-            <p className="text-[11px] text-zinc-400">Universal Developer Access</p>
+            <h1 className="text-sm font-semibold text-white tracking-tight">Sentinel Authority</h1>
+            <p className="text-[11px] text-zinc-400">Developer Master Access</p>
           </div>
         </div>
 
-        <form onSubmit={onSubmit} className="space-y-3 pt-2">
+        <form onSubmit={handleSubmit} className="space-y-3.5">
           <div>
-            <label className="text-zinc-400 font-medium block mb-1">Developer Passcode</label>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="text-[11px] font-medium text-zinc-400">
+                Master Passcode
+              </label>
+              <Lock className="w-3 h-3 text-zinc-500" />
+            </div>
             <input
               type="password"
               required
               value={passcode}
               onChange={(e) => setPasscode(e.target.value)}
-              placeholder="Enter Master Passcode..."
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white placeholder-zinc-600 focus:outline-none focus:border-cyan-500"
+              placeholder="Enter master passcode..."
+              className="w-full bg-zinc-950/80 border border-zinc-800/80 rounded-xl px-3.5 py-2 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-600 transition-colors"
             />
-            {authError && <p className="text-[11px] text-rose-400 mt-1">Invalid passcode</p>}
+            {authError && (
+              <p className="text-[11px] text-rose-400 mt-1.5 animate-in fade-in">
+                Invalid Master Passcode
+              </p>
+            )}
           </div>
 
           <button
             type="submit"
-            className="w-full py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-bold transition-colors cursor-pointer"
+            disabled={submitting}
+            className="w-full py-2.5 px-4 rounded-xl bg-white hover:bg-zinc-200 text-zinc-950 text-xs font-semibold transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer shadow-sm"
           >
-            Sign In to Controller
+            <span>{submitting ? "Authenticating..." : "Sign In to Console"}</span>
+            <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </form>
+
+        <div className="pt-2 border-t border-zinc-800/60 text-center">
+          <span className="text-[10px] text-zinc-400 font-mono">
+            Ed25519 Asymmetric Protected
+          </span>
+        </div>
       </div>
     </main>
   );
 }
-
