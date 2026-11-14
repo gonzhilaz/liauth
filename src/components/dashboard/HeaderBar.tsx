@@ -56,3 +56,4 @@ export function HeaderBar({ onRefresh, onLock, loading }: HeaderBarProps) {
     </header>
   );
 }
+
